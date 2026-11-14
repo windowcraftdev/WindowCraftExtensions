@@ -50,7 +50,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'x64 build failed' }
           cargo build -p $env:EXTENSION_ID --release --locked --target aarch64-pc-windows-msvc
           if ($LASTEXITCODE -ne 0) { throw 'ARM64 build failed' }
-      - name: Package executables and write hashes
+      - name: Copy executables and write hashes
         env:
           EXTENSION_ID: ${{ steps.extension.outputs.id }}
           EXTENSION_ENTRY: ${{ steps.extension.outputs.entry }}
@@ -60,10 +60,11 @@ jobs:
             $target = if ($arch -eq 'x64') { 'x86_64-pc-windows-msvc' } else { 'aarch64-pc-windows-msvc' }
             $exe = Join-Path "target/$target/release" $env:EXTENSION_ENTRY
             if (!(Test-Path -LiteralPath $exe -PathType Leaf)) { throw "Missing executable: $exe" }
-            $zip = "$($env:EXTENSION_ID)-$arch.zip"
-            Compress-Archive -LiteralPath $exe -DestinationPath $zip
-            $hash = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()
-            $sums += "$hash  $zip"
+            # A single exe needs no archive; WindowCraft downloads it as it is.
+            $asset = "$($env:EXTENSION_ID)-$arch.exe"
+            Copy-Item -LiteralPath $exe -Destination $asset
+            $hash = (Get-FileHash -LiteralPath $asset -Algorithm SHA256).Hash.ToLowerInvariant()
+            $sums += "$hash  $asset"
             Write-Host "$arch SHA-256: $hash"
           }
           [IO.File]::WriteAllText((Join-Path $PWD 'SHA256SUMS'), ($sums -join "`n") + "`n", [Text.UTF8Encoding]::new($false))
@@ -72,5 +73,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EXTENSION_ID: ${{ steps.extension.outputs.id }}
         run: |
-          gh release create $env:GITHUB_REF_NAME "$($env:EXTENSION_ID)-x64.zip" "$($env:EXTENSION_ID)-arm64.zip" SHA256SUMS --repo $env:GITHUB_REPOSITORY --title $env:GITHUB_REF_NAME --generate-notes --verify-tag
+          gh release create $env:GITHUB_REF_NAME "$($env:EXTENSION_ID)-x64.exe" "$($env:EXTENSION_ID)-arm64.exe" SHA256SUMS --repo $env:GITHUB_REPOSITORY --title $env:GITHUB_REF_NAME --generate-notes --verify-tag
           if ($LASTEXITCODE -ne 0) { throw 'Release creation failed' }

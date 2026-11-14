@@ -6,7 +6,9 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const fields = ['schema', 'id', 'version', 'name', 'summary', 'author', 'license', 'min_app', 'homepage', 'entry', 'downloads'];
+const fields = ['schema', 'id', 'version', 'name', 'summary', 'author', 'license', 'min_app', 'homepage', 'entry', 'ui', 'downloads'];
+// Texts of `ui`: maximum length and whether it is required.
+const uiTexts = { title: [80, true], button: [32, true], note: [280, false], dialog: [80, true], files: [60, true] };
 const languages = ['en', 'pl', 'de', 'fr', 'es', 'it', 'pt-BR', 'uk'];
 const releasePrefix = 'https://github.com/windowcraftdev/WindowCraftExtensions/releases/download/';
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -15,6 +17,44 @@ const end = '(?![\\s\\S])';
 const versionPattern = new RegExp('^[0-9]+\\.[0-9]+\\.[0-9]+' + end);
 const idPattern = new RegExp('^[a-z0-9][a-z0-9-]{0,47}' + end);
 const hashPattern = new RegExp('^[0-9a-f]{64}' + end);
+const patternsPattern = new RegExp('^\\*\\.[a-z0-9]{1,10}(;\\*\\.[a-z0-9]{1,10})*' + end);
+
+// A text by language tag: en is required, each value 1 to `limit` characters.
+function checkLocalized(key, localized, limit, report) {
+  if (!object(localized)) {
+    report(`${key} must be an object with an en value`);
+    return;
+  }
+  if (!Object.hasOwn(localized, 'en')) report(`${key}.en is required`);
+  for (const [language, value] of Object.entries(localized)) {
+    if (!languages.includes(language)) report(`${key}.${language} is not a supported language`);
+    if (typeof value !== 'string' || Array.from(value.trim()).length < 1 || Array.from(value.trim()).length > limit) {
+      report(`${key}.${language} must have 1 to ${limit} characters after trimming`);
+    }
+    if (typeof value === 'string' && /[\u0000-\u001f\u007f-\u009f]/u.test(value)) {
+      report(`${key}.${language} must not contain control characters`);
+    }
+  }
+}
+
+// The row WindowCraft draws for an installed extension: a button that opens
+// a file picker and runs the extension on the chosen files.
+function checkUi(ui, report) {
+  if (!object(ui)) {
+    report('ui must be an object');
+    return;
+  }
+  for (const key of Object.keys(ui)) {
+    if (!Object.hasOwn(uiTexts, key) && key !== 'patterns') report(`ui has unknown property "${key}"`);
+  }
+  for (const [key, [limit, required]] of Object.entries(uiTexts)) {
+    if (Object.hasOwn(ui, key)) checkLocalized(`ui.${key}`, ui[key], limit, report);
+    else if (required) report(`ui.${key} is required`);
+  }
+  if (!matches(ui.patterns, patternsPattern) || ui.patterns.length > 1000) {
+    report('ui.patterns must look like *.jpg;*.png (lowercase extensions, at most 1000 characters)');
+  }
+}
 
 function validate(manifest, folder, report) {
   if (!object(manifest)) {
@@ -28,22 +68,11 @@ function validate(manifest, folder, report) {
   if (!matches(manifest.id, idPattern)) report('id must match ^[a-z0-9][a-z0-9-]{0,47}$');
   if (folder !== undefined && manifest.id !== folder) report(`id must equal folder name "${folder}"`);
   if (!matches(manifest.version, versionPattern)) report('version must have the form 0.1.0');
-  for (const [key, limit] of [['name', 48], ['summary', 280]]) {
-    const localized = manifest[key];
-    if (!object(localized)) {
-      report(`${key} must be an object with an en value`);
-      continue;
-    }
-    if (!Object.hasOwn(localized, 'en')) report(`${key}.en is required`);
-    for (const [language, value] of Object.entries(localized)) {
-      if (!languages.includes(language)) report(`${key}.${language} is not a supported language`);
-      if (typeof value !== 'string' || Array.from(value.trim()).length < 1 || Array.from(value.trim()).length > limit) {
-        report(`${key}.${language} must have 1 to ${limit} characters after trimming`);
-      }
-      if (typeof value === 'string' && /[\u0000-\u001f\u007f-\u009f]/u.test(value)) {
-        report(`${key}.${language} must not contain control characters`);
-      }
-    }
+  checkLocalized('name', manifest.name, 48, report);
+  checkLocalized('summary', manifest.summary, 280, report);
+  if (Object.hasOwn(manifest, 'ui')) {
+    if (!Object.hasOwn(manifest, 'entry')) report('entry is required when ui is present');
+    checkUi(manifest.ui, report);
   }
   for (const [key, limit] of [['author', 48], ['license', 64]]) {
     const value = manifest[key];
@@ -76,7 +105,10 @@ function validate(manifest, folder, report) {
         for (const key of Object.keys(download)) {
           if (!['url', 'sha256'].includes(key)) report(`downloads.${arch} has unknown property "${key}"`);
         }
-        if (typeof download.url !== 'string' || !download.url.startsWith(releasePrefix)) report(`downloads.${arch}.url must start with ${releasePrefix}`);
+        // The release workflow names the files this way; WindowCraft saves
+        // the download as `entry`, so the URL must point at an exe.
+        const url = `${releasePrefix}${manifest.id}-v${manifest.version}/${manifest.id}-${arch}.exe`;
+        if (download.url !== url) report(`downloads.${arch}.url must be ${url}`);
         if (!matches(download.sha256, hashPattern)) report(`downloads.${arch}.sha256 must be 64 lowercase hex characters`);
       }
     }

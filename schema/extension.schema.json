@@ -6,6 +6,9 @@
   "dependentRequired": {
     "downloads": [
       "entry"
+    ],
+    "ui": [
+      "entry"
     ]
   },
   "required": [
@@ -60,6 +63,9 @@
       "not": {
         "pattern": "\\.\\."
       }
+    },
+    "ui": {
+      "$ref": "#/$defs/ui"
     },
     "downloads": {
       "type": "object",
@@ -311,7 +317,7 @@
       "properties": {
         "url": {
           "type": "string",
-          "pattern": "^https://github\\.com/windowcraftdev/WindowCraftExtensions/releases/download/"
+          "pattern": "^https://github\\.com/windowcraftdev/WindowCraftExtensions/releases/download/[a-z0-9-]+-v[0-9]+\\.[0-9]+\\.[0-9]+/[a-z0-9-]+-(x64|arm64)\\.exe$"
         },
         "sha256": {
           "type": "string",
@@ -325,6 +331,9 @@
       "additionalProperties": false,
       "dependentRequired": {
         "downloads": [
+          "entry"
+        ],
+        "ui": [
           "entry"
         ]
       },
@@ -376,6 +385,9 @@
             "pattern": "\\.\\."
           }
         },
+        "ui": {
+          "$ref": "#/$defs/ui"
+        },
         "downloads": {
           "type": "object",
           "additionalProperties": false,
@@ -388,6 +400,100 @@
             }
           },
           "minProperties": 1
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "description": "The row WindowCraft shows for the installed extension: a button that opens a file picker and runs the extension on the chosen files.",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "button",
+        "dialog",
+        "files",
+        "patterns"
+      ],
+      "properties": {
+        "title": {
+          "type": "object",
+          "required": [
+            "en"
+          ],
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(en|pl|de|fr|es|it|pt-BR|uk)$": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]*$"
+            }
+          }
+        },
+        "button": {
+          "type": "object",
+          "required": [
+            "en"
+          ],
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(en|pl|de|fr|es|it|pt-BR|uk)$": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]*$"
+            }
+          }
+        },
+        "note": {
+          "type": "object",
+          "required": [
+            "en"
+          ],
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(en|pl|de|fr|es|it|pt-BR|uk)$": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 280,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]*$"
+            }
+          }
+        },
+        "dialog": {
+          "type": "object",
+          "required": [
+            "en"
+          ],
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(en|pl|de|fr|es|it|pt-BR|uk)$": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]*$"
+            }
+          }
+        },
+        "files": {
+          "type": "object",
+          "required": [
+            "en"
+          ],
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(en|pl|de|fr|es|it|pt-BR|uk)$": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]*$"
+            }
+          }
+        },
+        "patterns": {
+          "type": "string",
+          "maxLength": 1000,
+          "pattern": "^\\*\\.[a-z0-9]{1,10}(;\\*\\.[a-z0-9]{1,10})*$"
         }
       }
     }

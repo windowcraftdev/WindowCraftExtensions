@@ -13,5 +13,24 @@
   "license": "MIT",
   "min_app": "1.5.0",
   "homepage": "https://github.com/windowcraftdev/WindowCraftExtensions/tree/main/extensions/my-extension",
-  "entry": "my-extension.exe"
+  "entry": "my-extension.exe",
+  "ui": {
+    "title": {
+      "en": "Check files",
+      "pl": "Sprawdź pliki"
+    },
+    "button": {
+      "en": "Choose files",
+      "pl": "Wybierz pliki"
+    },
+    "dialog": {
+      "en": "Choose files to check",
+      "pl": "Wybierz pliki do sprawdzenia"
+    },
+    "files": {
+      "en": "Text files",
+      "pl": "Pliki tekstowe"
+    },
+    "patterns": "*.txt;*.md"
+  }
 }

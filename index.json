@@ -1,4 +1,87 @@
 {
   "schema": 1,
-  "extensions": []
+  "extensions": [
+    {
+      "id": "metadata-stripper",
+      "version": "1.0.0",
+      "name": {
+        "en": "Metadata stripper",
+        "pl": "Usuwanie metadanych",
+        "de": "Metadaten entfernen",
+        "fr": "Suppression des métadonnées",
+        "es": "Eliminar metadatos",
+        "it": "Rimozione metadati",
+        "pt-BR": "Remoção de metadados",
+        "uk": "Видалення метаданих"
+      },
+      "summary": {
+        "en": "GPS location, camera, dates, author, comments and thumbnails are removed. The original stays as it is; the clean copy gets -clean in its name.",
+        "pl": "Usuwa lokalizację GPS, dane aparatu, daty, autora, komentarze i miniatury. Oryginał zostaje bez zmian, a czysta kopia dostaje -clean w nazwie.",
+        "de": "Entfernt GPS-Standort, Kameradaten, Datumsangaben, Autor, Kommentare und Vorschaubilder. Das Original bleibt unverändert, die saubere Kopie bekommt -clean im Namen.",
+        "fr": "Supprime la position GPS, les données de l'appareil, les dates, l'auteur, les commentaires et les miniatures. L'original reste intact ; la copie propre reçoit -clean dans son nom.",
+        "es": "Elimina la ubicación GPS, los datos de la cámara, las fechas, el autor, los comentarios y las miniaturas. El original no cambia; la copia limpia lleva -clean en el nombre.",
+        "it": "Rimuove posizione GPS, dati della fotocamera, date, autore, commenti e miniature. L'originale resta com'è; la copia pulita ha -clean nel nome.",
+        "pt-BR": "Remove localização GPS, dados da câmera, datas, autor, comentários e miniaturas. O original fica como está; a cópia limpa recebe -clean no nome.",
+        "uk": "Видаляє GPS-розташування, дані камери, дати, автора, коментарі й мініатюри. Оригінал лишається без змін, а чиста копія отримує -clean у назві."
+      },
+      "author": "WindowCraft Dev Team",
+      "license": "MIT",
+      "min_app": "1.5.0",
+      "homepage": "https://github.com/windowcraftdev/WindowCraftExtensions/tree/main/extensions/metadata-stripper",
+      "entry": "metadata-stripper.exe",
+      "ui": {
+        "title": {
+          "en": "Remove metadata from files",
+          "pl": "Usuń metadane z plików",
+          "de": "Metadaten aus Dateien entfernen",
+          "fr": "Supprimer les métadonnées des fichiers",
+          "es": "Eliminar metadatos de archivos",
+          "it": "Rimuovi i metadati dai file",
+          "pt-BR": "Remover metadados de arquivos",
+          "uk": "Видалити метадані з файлів"
+        },
+        "button": {
+          "en": "Choose files",
+          "pl": "Wybierz pliki",
+          "de": "Dateien auswählen",
+          "fr": "Choisir des fichiers",
+          "es": "Elegir archivos",
+          "it": "Scegli file",
+          "pt-BR": "Escolher arquivos",
+          "uk": "Вибрати файли"
+        },
+        "note": {
+          "en": "Works with photos, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG and WMA. Everything runs on this computer.",
+          "pl": "Obsługuje zdjęcia, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG i WMA. Wszystko działa na tym komputerze.",
+          "de": "Funktioniert mit Fotos, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG und WMA. Alles läuft auf diesem Computer.",
+          "fr": "Prend en charge les photos, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG et WMA. Tout se fait sur cet ordinateur.",
+          "es": "Admite fotos, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG y WMA. Todo se hace en este equipo.",
+          "it": "Supporta foto, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG e WMA. Tutto avviene su questo computer.",
+          "pt-BR": "Funciona com fotos, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG e WMA. Tudo roda neste computador.",
+          "uk": "Працює з фото, MP3, FLAC, MP4, MOV, MKV, WebM, WAV, AVI, AIFF, OGG і WMA. Усе виконується на цьому комп'ютері."
+        },
+        "dialog": {
+          "en": "Choose files to clean",
+          "pl": "Wybierz pliki do wyczyszczenia",
+          "de": "Dateien zum Bereinigen auswählen",
+          "fr": "Choisir les fichiers à nettoyer",
+          "es": "Elige los archivos que quieres limpiar",
+          "it": "Scegli i file da pulire",
+          "pt-BR": "Escolha os arquivos para limpar",
+          "uk": "Виберіть файли для очищення"
+        },
+        "files": {
+          "en": "Photos, audio and video",
+          "pl": "Zdjęcia, audio i wideo",
+          "de": "Fotos, Audio und Video",
+          "fr": "Photos, audio et vidéo",
+          "es": "Fotos, audio y vídeo",
+          "it": "Foto, audio e video",
+          "pt-BR": "Fotos, áudio e vídeo",
+          "uk": "Фото, аудіо й відео"
+        },
+        "patterns": "*.jpg;*.jpeg;*.jfif;*.png;*.webp;*.gif;*.mp3;*.aac;*.flac;*.mp4;*.m4a;*.m4v;*.m4b;*.mov;*.3gp;*.mkv;*.mka;*.webm;*.avi;*.wav;*.aif;*.aiff;*.ogg;*.oga;*.opus;*.wma;*.wmv;*.asf"
+      }
+    }
+  ]
 }
