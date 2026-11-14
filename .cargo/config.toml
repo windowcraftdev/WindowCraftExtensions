@@ -1,0 +1,6 @@
+# Made by Nordan
+# Links the C runtime statically, as WindowCraft does. Without this an
+# extension needs VCRUNTIME140.dll, which a clean Windows install lacks, and
+# fails to start with 0xC0000135.
+[target.'cfg(all(windows, target_env = "msvc"))']
+rustflags = ["-C", "target-feature=+crt-static"]
