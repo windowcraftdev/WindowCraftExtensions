@@ -1,0 +1,10 @@
+# Made by Nordan
+[package]
+name = "my-extension"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+
+[[bin]]
+name = "my-extension"
+path = "src/main.rs"

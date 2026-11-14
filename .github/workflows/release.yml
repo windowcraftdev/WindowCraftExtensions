@@ -1,0 +1,76 @@
+# Made by Nordan
+name: Release extension
+
+on:
+  push:
+    tags:
+      - '*-v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate tag and manifest
+        id: extension
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          $split = $tag.LastIndexOf('-v', [StringComparison]::Ordinal)
+          if ($split -lt 1) { throw 'Tag must have the form <id>-v<version>' }
+          $id = $tag.Substring(0, $split)
+          $version = $tag.Substring($split + 2)
+          if ($id -cnotmatch '\A[a-z0-9][a-z0-9-]{0,47}\z' -or $version -cnotmatch '\A[0-9]+\.[0-9]+\.[0-9]+\z') {
+            throw 'Tag must have the form <id>-v<version>'
+          }
+          $path = "extensions/$id/extension.json"
+          if (!(Test-Path -LiteralPath $path -PathType Leaf)) { throw "Missing $path" }
+          $manifest = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json
+          if ($manifest.version -cne $version) { throw 'Manifest version differs from the tag' }
+          node scripts/build-index.mjs --check
+          if ($LASTEXITCODE -ne 0) { throw 'Manifest or index validation failed' }
+          if (!$manifest.entry) { throw 'The release manifest must have an entry' }
+          "id=$id" >> $env:GITHUB_OUTPUT
+          "entry=$($manifest.entry)" >> $env:GITHUB_OUTPUT
+      - name: Install ARM64 target
+        run: rustup target add aarch64-pc-windows-msvc
+      - name: Build both architectures
+        env:
+          EXTENSION_ID: ${{ steps.extension.outputs.id }}
+        run: |
+          cargo build -p $env:EXTENSION_ID --release --locked --target x86_64-pc-windows-msvc
+          if ($LASTEXITCODE -ne 0) { throw 'x64 build failed' }
+          cargo build -p $env:EXTENSION_ID --release --locked --target aarch64-pc-windows-msvc
+          if ($LASTEXITCODE -ne 0) { throw 'ARM64 build failed' }
+      - name: Package executables and write hashes
+        env:
+          EXTENSION_ID: ${{ steps.extension.outputs.id }}
+          EXTENSION_ENTRY: ${{ steps.extension.outputs.entry }}
+        run: |
+          $sums = @()
+          foreach ($arch in @('x64', 'arm64')) {
+            $target = if ($arch -eq 'x64') { 'x86_64-pc-windows-msvc' } else { 'aarch64-pc-windows-msvc' }
+            $exe = Join-Path "target/$target/release" $env:EXTENSION_ENTRY
+            if (!(Test-Path -LiteralPath $exe -PathType Leaf)) { throw "Missing executable: $exe" }
+            $zip = "$($env:EXTENSION_ID)-$arch.zip"
+            Compress-Archive -LiteralPath $exe -DestinationPath $zip
+            $hash = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+            $sums += "$hash  $zip"
+            Write-Host "$arch SHA-256: $hash"
+          }
+          [IO.File]::WriteAllText((Join-Path $PWD 'SHA256SUMS'), ($sums -join "`n") + "`n", [Text.UTF8Encoding]::new($false))
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXTENSION_ID: ${{ steps.extension.outputs.id }}
+        run: |
+          gh release create $env:GITHUB_REF_NAME "$($env:EXTENSION_ID)-x64.zip" "$($env:EXTENSION_ID)-arm64.zip" SHA256SUMS --repo $env:GITHUB_REPOSITORY --title $env:GITHUB_REF_NAME --generate-notes --verify-tag
+          if ($LASTEXITCODE -ne 0) { throw 'Release creation failed' }

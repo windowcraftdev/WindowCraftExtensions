@@ -1,0 +1,395 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WindowCraft extension manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "dependentRequired": {
+    "downloads": [
+      "entry"
+    ]
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "name",
+    "summary",
+    "author",
+    "license"
+  ],
+  "properties": {
+    "schema": {
+      "type": "integer",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,47}(?![\\s\\S])"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?![\\s\\S])"
+    },
+    "name": {
+      "$ref": "#/$defs/name"
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 48
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "min_app": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?![\\s\\S])"
+    },
+    "homepage": {
+      "type": "string",
+      "pattern": "^https://github\\.com/\\S*$"
+    },
+    "entry": {
+      "type": "string",
+      "pattern": "^[^/\\\\]*\\.exe(?![\\s\\S])",
+      "not": {
+        "pattern": "\\.\\."
+      }
+    },
+    "downloads": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x64": {
+          "$ref": "#/$defs/download"
+        },
+        "arm64": {
+          "$ref": "#/$defs/download"
+        }
+      },
+      "minProperties": 1
+    }
+  },
+  "$defs": {
+    "name": {
+      "type": "object",
+      "required": [
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "en": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "pl": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "de": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "fr": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "es": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "it": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "pt-BR": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "uk": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,46}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "en": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "pl": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "de": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "fr": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "es": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "it": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "pt-BR": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        },
+        "uk": {
+          "type": "string",
+          "allOf": [
+            {
+              "pattern": "^\\s*\\S(?:[\\s\\S]{0,278}\\S)?\\s*(?![\\s\\S])"
+            },
+            {
+              "not": {
+                "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "download": {
+      "type": "object",
+      "required": [
+        "url",
+        "sha256"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/windowcraftdev/WindowCraftExtensions/releases/download/"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+        }
+      },
+      "additionalProperties": false
+    },
+    "indexEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "dependentRequired": {
+        "downloads": [
+          "entry"
+        ]
+      },
+      "required": [
+        "id",
+        "version",
+        "name",
+        "summary",
+        "author",
+        "license"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,47}(?![\\s\\S])"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?![\\s\\S])"
+        },
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "summary": {
+          "$ref": "#/$defs/summary"
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 48
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "min_app": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?![\\s\\S])"
+        },
+        "homepage": {
+          "type": "string",
+          "pattern": "^https://github\\.com/\\S*$"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[^/\\\\]*\\.exe(?![\\s\\S])",
+          "not": {
+            "pattern": "\\.\\."
+          }
+        },
+        "downloads": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x64": {
+              "$ref": "#/$defs/download"
+            },
+            "arm64": {
+              "$ref": "#/$defs/download"
+            }
+          },
+          "minProperties": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+# Made by Nordan
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/build-index.mjs --check
+
+  build:
+    needs: index
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - name: Find extension packages
+        id: extensions
+        run: |
+          $packages = @(Get-ChildItem -LiteralPath extensions -Directory | Where-Object {
+            Test-Path -LiteralPath (Join-Path $_.FullName 'Cargo.toml') -PathType Leaf
+          })
+          "present=$($packages.Count -gt 0)".ToLowerInvariant() >> $env:GITHUB_OUTPUT
+      - name: Build extensions
+        if: steps.extensions.outputs.present == 'true'
+        run: cargo build --workspace --release --locked
+      - name: Build template
+        working-directory: template
+        run: cargo build --release

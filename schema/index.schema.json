@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WindowCraft extension index",
+  "type": "object",
+  "required": [
+    "schema",
+    "extensions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "integer",
+      "const": 1
+    },
+    "extensions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "extension.schema.json#/$defs/indexEntry"
+      }
+    }
+  }
+}
