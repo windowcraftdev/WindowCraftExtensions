@@ -81,6 +81,16 @@
           "uk": "Фото, аудіо й відео"
         },
         "patterns": "*.jpg;*.jpeg;*.jfif;*.png;*.webp;*.gif;*.mp3;*.aac;*.flac;*.mp4;*.m4a;*.m4v;*.m4b;*.mov;*.3gp;*.mkv;*.mka;*.webm;*.avi;*.wav;*.aif;*.aiff;*.ogg;*.oga;*.opus;*.wma;*.wmv;*.asf"
+      },
+      "downloads": {
+        "x64": {
+          "url": "https://github.com/windowcraftdev/WindowCraftExtensions/releases/download/metadata-stripper-v1.0.1/metadata-stripper-x64.exe",
+          "sha256": "5e88e2f9f983eba4060d3ddf4232aee95a536e72d66cdcce13b9e10ff177f007"
+        },
+        "arm64": {
+          "url": "https://github.com/windowcraftdev/WindowCraftExtensions/releases/download/metadata-stripper-v1.0.1/metadata-stripper-arm64.exe",
+          "sha256": "ad3197f850477aa821f609cb3ce7041eb507d6c02e4265ce8d8bea19faa6caaf"
+        }
       }
     }
   ]
