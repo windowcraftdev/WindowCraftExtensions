@@ -431,6 +431,16 @@
             }
           ]
         }
+      },
+      "downloads": {
+        "x64": {
+          "url": "https://github.com/windowcraftdev/WindowCraftExtensions/releases/download/file-converter-v1.0.0/file-converter-x64.exe",
+          "sha256": "7d7b299bb34710695d2248e0cad6ac18e6bd2f6f59b59858e44cc6a084afe674"
+        },
+        "arm64": {
+          "url": "https://github.com/windowcraftdev/WindowCraftExtensions/releases/download/file-converter-v1.0.0/file-converter-arm64.exe",
+          "sha256": "e4ec845d41fb0629ce9b3ee6620f482cf07297eda225ba34aa5e64c88c0fe043"
+        }
       }
     },
     {
