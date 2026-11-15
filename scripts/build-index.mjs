@@ -18,6 +18,8 @@ const versionPattern = new RegExp('^[0-9]+\\.[0-9]+\\.[0-9]+' + end);
 const idPattern = new RegExp('^[a-z0-9][a-z0-9-]{0,47}' + end);
 const hashPattern = new RegExp('^[0-9a-f]{64}' + end);
 const patternsPattern = new RegExp('^\\*\\.[a-z0-9]{1,10}(;\\*\\.[a-z0-9]{1,10})*' + end);
+const choiceValuePattern = new RegExp('^[a-z0-9][a-z0-9-]{0,15}' + end);
+const validPatterns = value => matches(value, patternsPattern) && value.length <= 1000;
 
 // A text by language tag: en is required, each value 1 to `limit` characters.
 function checkLocalized(key, localized, limit, report) {
@@ -45,15 +47,52 @@ function checkUi(ui, report) {
     return;
   }
   for (const key of Object.keys(ui)) {
-    if (!Object.hasOwn(uiTexts, key) && key !== 'patterns') report(`ui has unknown property "${key}"`);
+    if (!Object.hasOwn(uiTexts, key) && key !== 'patterns' && key !== 'choices') report(`ui has unknown property "${key}"`);
   }
   for (const [key, [limit, required]] of Object.entries(uiTexts)) {
     if (Object.hasOwn(ui, key)) checkLocalized(`ui.${key}`, ui[key], limit, report);
     else if (required) report(`ui.${key} is required`);
   }
-  if (!matches(ui.patterns, patternsPattern) || ui.patterns.length > 1000) {
+  if (!validPatterns(ui.patterns)) {
     report('ui.patterns must look like *.jpg;*.png (lowercase extensions, at most 1000 characters)');
   }
+  if (Object.hasOwn(ui, 'choices')) checkChoices(ui.choices, report);
+}
+
+// The list next to the button. WindowCraft 1.5.1 and newer pass the chosen
+// value as --to <value>, so a value is a short word that cannot look like
+// an option.
+function checkChoices(choices, report) {
+  if (!object(choices)) {
+    report('ui.choices must be an object');
+    return;
+  }
+  for (const key of Object.keys(choices)) {
+    if (key !== 'label' && key !== 'options') report(`ui.choices has unknown property "${key}"`);
+  }
+  checkLocalized('ui.choices.label', choices.label, 40, report);
+  if (!Array.isArray(choices.options) || choices.options.length < 1 || choices.options.length > 40) {
+    report('ui.choices.options must be a list of 1 to 40 options');
+    return;
+  }
+  const seen = new Set();
+  choices.options.forEach((option, index) => {
+    const key = `ui.choices.options[${index}]`;
+    if (!object(option)) {
+      report(`${key} must be an object`);
+      return;
+    }
+    for (const field of Object.keys(option)) {
+      if (!['value', 'label', 'patterns'].includes(field)) report(`${key} has unknown property "${field}"`);
+    }
+    if (!matches(option.value, choiceValuePattern)) report(`${key}.value must match ^[a-z0-9][a-z0-9-]{0,15}$`);
+    else if (seen.has(option.value)) report(`${key}.value "${option.value}" is used twice`);
+    seen.add(option.value);
+    checkLocalized(`${key}.label`, option.label, 40, report);
+    if (Object.hasOwn(option, 'patterns') && !validPatterns(option.patterns)) {
+      report(`${key}.patterns must look like *.jpg;*.png (lowercase extensions, at most 1000 characters)`);
+    }
+  });
 }
 
 function validate(manifest, folder, report) {

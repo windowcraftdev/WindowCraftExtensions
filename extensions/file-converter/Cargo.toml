@@ -1,0 +1,22 @@
+# Made by Nordan
+[package]
+name = "file-converter"
+version = "1.0.0"
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "file-converter"
+path = "src/main.rs"
+
+[dependencies]
+image = { version = "0.25.10", default-features = false, features = ["png", "jpeg", "gif", "bmp", "ico", "tiff", "webp", "qoi", "tga", "pnm", "hdr", "exr", "dds", "ff", "avif"] }
+symphonia = { version = "0.5", default-features = false, features = ["aac", "alac", "flac", "mp3", "pcm", "vorbis", "adpcm", "isomp4", "mkv", "ogg", "wav", "aiff", "caf"] }
+flacenc = { version = "0.5.1", default-features = false }
+mp3lame-encoder = "0.3.0"
+serde_json = { version = "1", features = ["preserve_order"] }
+serde-saphyr = { version = "2.1.1", default-features = false, features = ["serialize", "deserialize"] }
+toml = "1.1"
+csv = "1.4"
+pulldown-cmark = { version = "0.13", default-features = false, features = ["html"] }
+tempfile = { version = "3", default-features = false }

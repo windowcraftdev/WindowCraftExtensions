@@ -1,0 +1,433 @@
+{
+  "schema": 1,
+  "id": "file-converter",
+  "version": "1.0.0",
+  "name": {
+    "en": "File converter",
+    "pl": "Konwerter plików",
+    "de": "Dateikonverter",
+    "fr": "Convertisseur de fichiers",
+    "es": "Convertidor de archivos",
+    "it": "Convertitore di file",
+    "pt-BR": "Conversor de arquivos",
+    "uk": "Конвертер файлів"
+  },
+  "summary": {
+    "en": "Converts pictures, sound, video and data files on this computer. The original stays as it is; the new file is saved next to it.",
+    "pl": "Konwertuje obrazy, dźwięk, wideo i pliki danych na tym komputerze. Oryginał zostaje bez zmian, a nowy plik jest zapisywany obok niego.",
+    "de": "Konvertiert Bilder, Ton, Videos und Datendateien auf diesem Computer. Das Original bleibt unverändert, die neue Datei wird daneben gespeichert.",
+    "fr": "Convertit les images, le son, la vidéo et les fichiers de données sur cet ordinateur. L'original reste intact ; le nouveau fichier est enregistré à côté.",
+    "es": "Convierte imágenes, sonido, vídeo y archivos de datos en este equipo. El original no cambia; el archivo nuevo se guarda al lado.",
+    "it": "Converte immagini, audio, video e file di dati su questo computer. L'originale resta com'è; il nuovo file viene salvato accanto.",
+    "pt-BR": "Converte imagens, som, vídeo e arquivos de dados neste computador. O original fica como está; o novo arquivo é salvo ao lado dele.",
+    "uk": "Конвертує зображення, звук, відео й файли даних на цьому комп'ютері. Оригінал лишається без змін, а новий файл зберігається поруч."
+  },
+  "author": "WindowCraft Dev Team",
+  "license": "MIT AND LGPL-2.0-or-later",
+  "min_app": "1.5.1",
+  "homepage": "https://github.com/windowcraftdev/WindowCraftExtensions/tree/main/extensions/file-converter",
+  "entry": "file-converter.exe",
+  "ui": {
+    "title": {
+      "en": "Convert files",
+      "pl": "Konwertuj pliki",
+      "de": "Dateien konvertieren",
+      "fr": "Convertir des fichiers",
+      "es": "Convertir archivos",
+      "it": "Converti file",
+      "pt-BR": "Converter arquivos",
+      "uk": "Конвертувати файли"
+    },
+    "button": {
+      "en": "Choose files",
+      "pl": "Wybierz pliki",
+      "de": "Dateien auswählen",
+      "fr": "Choisir des fichiers",
+      "es": "Elegir archivos",
+      "it": "Scegli file",
+      "pt-BR": "Escolher arquivos",
+      "uk": "Вибрати файли"
+    },
+    "note": {
+      "en": "Video, M4A and Opus only change the container, so nothing is re-encoded. MP3, FLAC, WAV and AIFF are made from any audio track. Everything runs on this computer.",
+      "pl": "Wideo, M4A i Opus zmieniają tylko kontener, bez ponownego kodowania. MP3, FLAC, WAV i AIFF powstają z dowolnej ścieżki audio. Wszystko działa na tym komputerze.",
+      "de": "Bei Video, M4A und Opus wird nur der Container gewechselt, nichts wird neu codiert. MP3, FLAC, WAV und AIFF werden aus jeder Audiospur erstellt. Alles läuft auf diesem Computer.",
+      "fr": "La vidéo, le M4A et l'Opus ne changent que le conteneur, sans réencodage. MP3, FLAC, WAV et AIFF sont créés à partir de toute piste audio. Tout se fait sur cet ordinateur.",
+      "es": "En vídeo, M4A y Opus solo cambia el contenedor, sin recodificar nada. MP3, FLAC, WAV y AIFF se crean a partir de cualquier pista de audio. Todo se hace en este equipo.",
+      "it": "Video, M4A e Opus cambiano solo il contenitore, senza ricodifica. MP3, FLAC, WAV e AIFF sono creati da qualsiasi traccia audio. Tutto avviene su questo computer.",
+      "pt-BR": "Vídeo, M4A e Opus mudam apenas o contêiner, sem recodificar nada. MP3, FLAC, WAV e AIFF são criados de qualquer faixa de áudio. Tudo roda neste computador.",
+      "uk": "Для відео, M4A і Opus змінюється лише контейнер, без перекодування. MP3, FLAC, WAV і AIFF створюються з будь-якої аудіодоріжки. Усе виконується на цьому комп'ютері."
+    },
+    "dialog": {
+      "en": "Choose files to convert",
+      "pl": "Wybierz pliki do konwersji",
+      "de": "Dateien zum Konvertieren auswählen",
+      "fr": "Choisir les fichiers à convertir",
+      "es": "Elige los archivos que quieres convertir",
+      "it": "Scegli i file da convertire",
+      "pt-BR": "Escolha os arquivos para converter",
+      "uk": "Виберіть файли для конвертації"
+    },
+    "files": {
+      "en": "Pictures, audio, video and data",
+      "pl": "Obrazy, audio, wideo i dane",
+      "de": "Bilder, Audio, Video und Daten",
+      "fr": "Images, audio, vidéo et données",
+      "es": "Imágenes, audio, vídeo y datos",
+      "it": "Immagini, audio, video e dati",
+      "pt-BR": "Imagens, áudio, vídeo e dados",
+      "uk": "Зображення, аудіо, відео й дані"
+    },
+    "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff;*.mp3;*.flac;*.wav;*.aif;*.aiff;*.m4a;*.aac;*.ogg;*.oga;*.caf;*.mka;*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp;*.json;*.yaml;*.yml;*.toml;*.csv;*.md;*.markdown",
+    "choices": {
+      "label": {
+        "en": "Convert to",
+        "pl": "Konwertuj na",
+        "de": "Konvertieren in",
+        "fr": "Convertir en",
+        "es": "Convertir a",
+        "it": "Converti in",
+        "pt-BR": "Converter para",
+        "uk": "Конвертувати у"
+      },
+      "options": [
+        {
+          "value": "png",
+          "label": {
+            "en": "PNG image",
+            "pl": "Obraz PNG",
+            "de": "PNG-Bild",
+            "fr": "Image PNG",
+            "es": "Imagen PNG",
+            "it": "Immagine PNG",
+            "pt-BR": "Imagem PNG",
+            "uk": "Зображення PNG"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "jpg",
+          "label": {
+            "en": "JPG image",
+            "pl": "Obraz JPG",
+            "de": "JPG-Bild",
+            "fr": "Image JPG",
+            "es": "Imagen JPG",
+            "it": "Immagine JPG",
+            "pt-BR": "Imagem JPG",
+            "uk": "Зображення JPG"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "webp",
+          "label": {
+            "en": "WebP image (lossless)",
+            "pl": "Obraz WebP (bezstratny)",
+            "de": "WebP-Bild (verlustfrei)",
+            "fr": "Image WebP (sans perte)",
+            "es": "Imagen WebP (sin pérdida)",
+            "it": "Immagine WebP (senza perdita)",
+            "pt-BR": "Imagem WebP (sem perdas)",
+            "uk": "Зображення WebP (без втрат)"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "avif",
+          "label": {
+            "en": "AVIF image",
+            "pl": "Obraz AVIF",
+            "de": "AVIF-Bild",
+            "fr": "Image AVIF",
+            "es": "Imagen AVIF",
+            "it": "Immagine AVIF",
+            "pt-BR": "Imagem AVIF",
+            "uk": "Зображення AVIF"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "bmp",
+          "label": {
+            "en": "BMP image",
+            "pl": "Obraz BMP",
+            "de": "BMP-Bild",
+            "fr": "Image BMP",
+            "es": "Imagen BMP",
+            "it": "Immagine BMP",
+            "pt-BR": "Imagem BMP",
+            "uk": "Зображення BMP"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "tiff",
+          "label": {
+            "en": "TIFF image",
+            "pl": "Obraz TIFF",
+            "de": "TIFF-Bild",
+            "fr": "Image TIFF",
+            "es": "Imagen TIFF",
+            "it": "Immagine TIFF",
+            "pt-BR": "Imagem TIFF",
+            "uk": "Зображення TIFF"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "gif",
+          "label": {
+            "en": "GIF image",
+            "pl": "Obraz GIF",
+            "de": "GIF-Bild",
+            "fr": "Image GIF",
+            "es": "Imagen GIF",
+            "it": "Immagine GIF",
+            "pt-BR": "Imagem GIF",
+            "uk": "Зображення GIF"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "ico",
+          "label": {
+            "en": "ICO icon",
+            "pl": "Ikona ICO",
+            "de": "ICO-Symbol",
+            "fr": "Icône ICO",
+            "es": "Icono ICO",
+            "it": "Icona ICO",
+            "pt-BR": "Ícone ICO",
+            "uk": "Значок ICO"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "qoi",
+          "label": {
+            "en": "QOI image",
+            "pl": "Obraz QOI",
+            "de": "QOI-Bild",
+            "fr": "Image QOI",
+            "es": "Imagen QOI",
+            "it": "Immagine QOI",
+            "pt-BR": "Imagem QOI",
+            "uk": "Зображення QOI"
+          },
+          "patterns": "*.png;*.jpg;*.jpeg;*.jfif;*.webp;*.gif;*.bmp;*.tif;*.tiff;*.ico;*.tga;*.qoi;*.ppm;*.pgm;*.pbm;*.pnm;*.hdr;*.exr;*.dds;*.ff"
+        },
+        {
+          "value": "mp3",
+          "label": {
+            "en": "MP3 audio",
+            "pl": "Audio MP3",
+            "de": "MP3-Audio",
+            "fr": "Audio MP3",
+            "es": "Audio MP3",
+            "it": "Audio MP3",
+            "pt-BR": "Áudio MP3",
+            "uk": "Аудіо MP3"
+          },
+          "patterns": "*.mp3;*.flac;*.wav;*.aif;*.aiff;*.m4a;*.aac;*.ogg;*.oga;*.caf;*.mka;*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "flac",
+          "label": {
+            "en": "FLAC audio",
+            "pl": "Audio FLAC",
+            "de": "FLAC-Audio",
+            "fr": "Audio FLAC",
+            "es": "Audio FLAC",
+            "it": "Audio FLAC",
+            "pt-BR": "Áudio FLAC",
+            "uk": "Аудіо FLAC"
+          },
+          "patterns": "*.mp3;*.flac;*.wav;*.aif;*.aiff;*.m4a;*.aac;*.ogg;*.oga;*.caf;*.mka;*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "wav",
+          "label": {
+            "en": "WAV audio",
+            "pl": "Audio WAV",
+            "de": "WAV-Audio",
+            "fr": "Audio WAV",
+            "es": "Audio WAV",
+            "it": "Audio WAV",
+            "pt-BR": "Áudio WAV",
+            "uk": "Аудіо WAV"
+          },
+          "patterns": "*.mp3;*.flac;*.wav;*.aif;*.aiff;*.m4a;*.aac;*.ogg;*.oga;*.caf;*.mka;*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "aiff",
+          "label": {
+            "en": "AIFF audio",
+            "pl": "Audio AIFF",
+            "de": "AIFF-Audio",
+            "fr": "Audio AIFF",
+            "es": "Audio AIFF",
+            "it": "Audio AIFF",
+            "pt-BR": "Áudio AIFF",
+            "uk": "Аудіо AIFF"
+          },
+          "patterns": "*.mp3;*.flac;*.wav;*.aif;*.aiff;*.m4a;*.aac;*.ogg;*.oga;*.caf;*.mka;*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "m4a",
+          "label": {
+            "en": "M4A audio",
+            "pl": "Audio M4A",
+            "de": "M4A-Audio",
+            "fr": "Audio M4A",
+            "es": "Audio M4A",
+            "it": "Audio M4A",
+            "pt-BR": "Áudio M4A",
+            "uk": "Аудіо M4A"
+          },
+          "patterns": "*.mp4;*.m4v;*.mov;*.m4a;*.mkv;*.mka;*.webm;*.3gp"
+        },
+        {
+          "value": "opus",
+          "label": {
+            "en": "Opus audio",
+            "pl": "Audio Opus",
+            "de": "Opus-Audio",
+            "fr": "Audio Opus",
+            "es": "Audio Opus",
+            "it": "Audio Opus",
+            "pt-BR": "Áudio Opus",
+            "uk": "Аудіо Opus"
+          },
+          "patterns": "*.webm;*.mkv;*.mka;*.mp4;*.m4a;*.mov"
+        },
+        {
+          "value": "mp4",
+          "label": {
+            "en": "MP4 video",
+            "pl": "Wideo MP4",
+            "de": "MP4-Video",
+            "fr": "Vidéo MP4",
+            "es": "Vídeo MP4",
+            "it": "Video MP4",
+            "pt-BR": "Vídeo MP4",
+            "uk": "Відео MP4"
+          },
+          "patterns": "*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "mov",
+          "label": {
+            "en": "MOV video",
+            "pl": "Wideo MOV",
+            "de": "MOV-Video",
+            "fr": "Vidéo MOV",
+            "es": "Vídeo MOV",
+            "it": "Video MOV",
+            "pt-BR": "Vídeo MOV",
+            "uk": "Відео MOV"
+          },
+          "patterns": "*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "mkv",
+          "label": {
+            "en": "MKV video",
+            "pl": "Wideo MKV",
+            "de": "MKV-Video",
+            "fr": "Vidéo MKV",
+            "es": "Vídeo MKV",
+            "it": "Video MKV",
+            "pt-BR": "Vídeo MKV",
+            "uk": "Відео MKV"
+          },
+          "patterns": "*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "webm",
+          "label": {
+            "en": "WebM video",
+            "pl": "Wideo WebM",
+            "de": "WebM-Video",
+            "fr": "Vidéo WebM",
+            "es": "Vídeo WebM",
+            "it": "Video WebM",
+            "pt-BR": "Vídeo WebM",
+            "uk": "Відео WebM"
+          },
+          "patterns": "*.mp4;*.m4v;*.mov;*.mkv;*.webm;*.3gp"
+        },
+        {
+          "value": "json",
+          "label": {
+            "en": "JSON data",
+            "pl": "Dane JSON",
+            "de": "JSON-Daten",
+            "fr": "Données JSON",
+            "es": "Datos JSON",
+            "it": "Dati JSON",
+            "pt-BR": "Dados JSON",
+            "uk": "Дані JSON"
+          },
+          "patterns": "*.json;*.yaml;*.yml;*.toml;*.csv"
+        },
+        {
+          "value": "yaml",
+          "label": {
+            "en": "YAML data",
+            "pl": "Dane YAML",
+            "de": "YAML-Daten",
+            "fr": "Données YAML",
+            "es": "Datos YAML",
+            "it": "Dati YAML",
+            "pt-BR": "Dados YAML",
+            "uk": "Дані YAML"
+          },
+          "patterns": "*.json;*.yaml;*.yml;*.toml"
+        },
+        {
+          "value": "toml",
+          "label": {
+            "en": "TOML data",
+            "pl": "Dane TOML",
+            "de": "TOML-Daten",
+            "fr": "Données TOML",
+            "es": "Datos TOML",
+            "it": "Dati TOML",
+            "pt-BR": "Dados TOML",
+            "uk": "Дані TOML"
+          },
+          "patterns": "*.json;*.yaml;*.yml;*.toml"
+        },
+        {
+          "value": "csv",
+          "label": {
+            "en": "CSV table",
+            "pl": "Tabela CSV",
+            "de": "CSV-Tabelle",
+            "fr": "Tableau CSV",
+            "es": "Tabla CSV",
+            "it": "Tabella CSV",
+            "pt-BR": "Tabela CSV",
+            "uk": "Таблиця CSV"
+          },
+          "patterns": "*.json;*.yaml;*.yml"
+        },
+        {
+          "value": "html",
+          "label": {
+            "en": "HTML page from Markdown",
+            "pl": "Strona HTML z Markdown",
+            "de": "HTML-Seite aus Markdown",
+            "fr": "Page HTML depuis Markdown",
+            "es": "Página HTML desde Markdown",
+            "it": "Pagina HTML da Markdown",
+            "pt-BR": "Página HTML de Markdown",
+            "uk": "Сторінка HTML із Markdown"
+          },
+          "patterns": "*.md;*.markdown"
+        }
+      ]
+    }
+  }
+}

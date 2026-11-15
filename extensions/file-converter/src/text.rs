@@ -1,0 +1,202 @@
+// Made by Nordan
+#[derive(Debug, Clone, Copy)]
+pub enum Reason {
+    Unsupported,
+    Container,
+    NoAudio,
+    NoVideo,
+    Animation,
+    Toml,
+    Flat,
+    InvalidInput,
+    TooLarge,
+    Encoder,
+}
+pub struct Text {
+    pub saved: &'static str,
+    pub failures: &'static str,
+    pub no_files: &'static str,
+    pub bad_target: &'static str,
+    pub already: &'static str,
+    reasons: [&'static str; 10],
+}
+impl Text {
+    pub fn reason(&self, reason: Reason) -> &'static str {
+        self.reasons[reason as usize]
+    }
+    pub fn for_tag(tag: &str) -> Self {
+        let (saved, failures, no_files, bad_target, already, reasons) = match tag {
+            "pl" => (
+                "Przekonwertowano: {}. Pierwszy: {}",
+                "Niepowodzenia: {}. Pierwszy błąd: {}",
+                "Wybierz co najmniej jeden plik.",
+                "Brak lub nieznany format docelowy (--to).",
+                "plik jest już w formacie {}",
+                [
+                    "nieobsługiwany format wejściowy",
+                    "strumień nie pasuje do kontenera docelowego",
+                    "brak ścieżki audio",
+                    "brak ścieżki wideo",
+                    "konwersja animacji bez utraty klatek nie jest obsługiwana",
+                    "TOML wymaga tabeli na najwyższym poziomie i danych bez null",
+                    "CSV wymaga tablicy płaskich obiektów z unikalnymi nazwami kolumn",
+                    "uszkodzony plik wejściowy",
+                    "plik jest zbyt duży dla WAV lub AIFF",
+                    "nie można uruchomić kodera",
+                ],
+            ),
+            "de" => (
+                "Konvertiert: {}. Erste Datei: {}",
+                "Fehlgeschlagen: {}. Erster Fehler: {}",
+                "Wählen Sie mindestens eine Datei.",
+                "Zielformat fehlt oder ist unbekannt (--to).",
+                "bereits im Format {}",
+                [
+                    "Eingabeformat nicht unterstützt",
+                    "Stream passt nicht in den Zielcontainer",
+                    "keine Audiospur",
+                    "keine Videospur",
+                    "Animation kann nicht ohne Bildverlust konvertiert werden",
+                    "TOML benötigt eine Tabelle auf oberster Ebene und keine Nullwerte",
+                    "CSV benötigt ein Array flacher Objekte mit eindeutigen Spaltennamen",
+                    "beschädigte Eingabedatei",
+                    "Datei ist zu groß für WAV oder AIFF",
+                    "Encoder konnte nicht gestartet werden",
+                ],
+            ),
+            "fr" => (
+                "Convertis : {}. Premier : {}",
+                "Échecs : {}. Première erreur : {}",
+                "Choisissez au moins un fichier.",
+                "Format cible absent ou inconnu (--to).",
+                "déjà au format {}",
+                [
+                    "format source non pris en charge",
+                    "flux incompatible avec le conteneur cible",
+                    "aucune piste audio",
+                    "aucune piste vidéo",
+                    "conversion d'animation sans perte d'images non prise en charge",
+                    "TOML exige une table à la racine et aucune valeur nulle",
+                    "CSV exige un tableau d'objets plats avec des noms de colonnes uniques",
+                    "fichier source endommagé",
+                    "fichier trop volumineux pour WAV ou AIFF",
+                    "impossible de démarrer l'encodeur",
+                ],
+            ),
+            "es" => (
+                "Convertidos: {}. Primero: {}",
+                "Errores: {}. Primer error: {}",
+                "Elige al menos un archivo.",
+                "Falta el formato de destino o es desconocido (--to).",
+                "ya está en formato {}",
+                [
+                    "formato de entrada no compatible",
+                    "el flujo no cabe en el contenedor de destino",
+                    "no hay pista de audio",
+                    "no hay pista de vídeo",
+                    "no se admite convertir animaciones sin perder fotogramas",
+                    "TOML requiere una tabla en la raíz y ningún valor nulo",
+                    "CSV requiere una matriz de objetos planos con nombres de columna únicos",
+                    "archivo de entrada dañado",
+                    "archivo demasiado grande para WAV o AIFF",
+                    "no se pudo iniciar el codificador",
+                ],
+            ),
+            "it" => (
+                "Convertiti: {}. Primo: {}",
+                "Non riusciti: {}. Primo errore: {}",
+                "Scegli almeno un file.",
+                "Formato di destinazione mancante o sconosciuto (--to).",
+                "già in formato {}",
+                [
+                    "formato di origine non supportato",
+                    "flusso incompatibile con il contenitore di destinazione",
+                    "nessuna traccia audio",
+                    "nessuna traccia video",
+                    "conversione di animazioni senza perdita di fotogrammi non supportata",
+                    "TOML richiede una tabella alla radice e nessun valore nullo",
+                    "CSV richiede un array di oggetti piatti con nomi di colonna univoci",
+                    "file di origine danneggiato",
+                    "file troppo grande per WAV o AIFF",
+                    "impossibile avviare il codificatore",
+                ],
+            ),
+            "pt-BR" => (
+                "Convertidos: {}. Primeiro: {}",
+                "Falhas: {}. Primeiro erro: {}",
+                "Escolha pelo menos um arquivo.",
+                "Formato de destino ausente ou desconhecido (--to).",
+                "já está no formato {}",
+                [
+                    "formato de entrada não suportado",
+                    "fluxo incompatível com o contêiner de destino",
+                    "nenhuma faixa de áudio",
+                    "nenhuma faixa de vídeo",
+                    "conversão de animação sem perda de quadros não suportada",
+                    "TOML exige uma tabela na raiz e nenhum valor nulo",
+                    "CSV exige uma matriz de objetos simples com nomes de coluna únicos",
+                    "arquivo de entrada danificado",
+                    "arquivo grande demais para WAV ou AIFF",
+                    "não foi possível iniciar o codificador",
+                ],
+            ),
+            "uk" => (
+                "Перетворено: {}. Перший: {}",
+                "Помилок: {}. Перша помилка: {}",
+                "Виберіть щонайменше один файл.",
+                "Цільовий формат відсутній або невідомий (--to).",
+                "уже у форматі {}",
+                [
+                    "непідтримуваний вхідний формат",
+                    "потік несумісний із цільовим контейнером",
+                    "немає аудіодоріжки",
+                    "немає відеодоріжки",
+                    "перетворення анімації без втрати кадрів не підтримується",
+                    "TOML потребує таблиці на верхньому рівні та даних без null",
+                    "CSV потребує масиву плоских об'єктів з унікальними назвами стовпців",
+                    "пошкоджений вхідний файл",
+                    "файл завеликий для WAV або AIFF",
+                    "не вдалося запустити кодувальник",
+                ],
+            ),
+            _ => (
+                "Converted: {}. First: {}",
+                "Failed: {}. First error: {}",
+                "Choose at least one file.",
+                "Missing or unknown target format (--to).",
+                "already {}",
+                [
+                    "unsupported input format",
+                    "stream does not fit the target container",
+                    "no audio track",
+                    "no video track",
+                    "animation cannot be converted without losing frames",
+                    "TOML requires a table at the top and no null values",
+                    "CSV requires an array of flat objects with unique column names",
+                    "damaged input file",
+                    "file is too large for WAV or AIFF",
+                    "encoder could not start",
+                ],
+            ),
+        };
+        Self {
+            saved,
+            failures,
+            no_files,
+            bad_target,
+            already,
+            reasons,
+        }
+    }
+}
+pub fn sentence(template: &str, count: usize, first: &str) -> String {
+    let mut parts = template.splitn(3, "{}");
+    format!(
+        "{}{}{}{}{}",
+        parts.next().unwrap_or_default(),
+        count,
+        parts.next().unwrap_or_default(),
+        first,
+        parts.next().unwrap_or_default()
+    )
+}

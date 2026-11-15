@@ -6,6 +6,7 @@ WindowCraft 1.5.0 reads [index.json](index.json) from this repository, lists the
 
 | Extension | What it does |
 | --- | --- |
+| [file-converter](extensions/file-converter) | Converts pictures, sound, video and data files: PNG, JPG, AVIF, MP3, FLAC, MP4, MKV, JSON, CSV and more |
 | [metadata-stripper](extensions/metadata-stripper) | Removes GPS location, camera data, dates and other metadata from photos, audio and video |
 
 ## How WindowCraft runs an extension
@@ -17,6 +18,8 @@ The `ui` block of `extension.json` adds a button to the extension's row. The but
 ```
 
 The extension prints one JSON object per line: `{"progress": 0.5, "step": "1 / 2: photo.jpg"}` while it works, then `{"summary": "..."}` with exit code 0, or `{"error": "..."}` with exit code 1. `<tag>` is the app language (en, pl, de, fr, es, it, pt-BR or uk).
+
+An extension that does one of several things, such as a converter and its target format, can add `choices` to the `ui` block. WindowCraft 1.5.1 and newer show them as a list next to the button and pass the chosen value as `--to <value>` before `--`. Each option can have its own `patterns` for the file picker. Set `min_app` to 1.5.1 for such an extension.
 
 ## Adding an extension
 
